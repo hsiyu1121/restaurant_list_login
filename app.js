@@ -1,42 +1,41 @@
 const express = require("express");
 const app = express();
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 // const restaurantList = require("./restaurant.json");
 const port = 3000;
 
-app.engine('hbs', exphbs({defaultLayout:'main', extname: '.hbs'}))
-app.set('view engine', 'hbs')
-app.use(express.static('public'))
-app.use(bodyParser.urlencoded({ extended: true}))
+app.engine("hbs", exphbs({ defaultLayout: "main", extname: ".hbs" }));
+app.set("view engine", "hbs");
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect("mongodb://localhost/restautant", {
-  useNewUrlParser: true, 
-  useUnifiedTopology: true
-})
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-
-const db = mongoose.connection
+const db = mongoose.connection;
 
 db.on("error", () => {
-  console.log("mongodb error!")
-})
+  console.log("mongodb error!");
+});
 db.once("open", () => {
-  console.log("mongodb connected!")
-})
+  console.log("mongodb connected!");
+});
 
 // index 位置
-app.get('/', (req,res) => {
-  res.render('index')
-})
+app.get("/", (req, res) => {
+  res.render("index");
+});
 
 // app.get('/', (req, res) => {
 //   res.render('index', {restaurant:restaurantList.results})
 // })
 
 // app.get('/restaurants/:restaurant_id', (req, res)=>{
-//   const restaurant = restaurantList.results.find(restaurant => 
+//   const restaurant = restaurantList.results.find(restaurant =>
 //   restaurant.id.toString() === req.params.restaurant_id)
 //   res.render('show', {restaurant:restaurant})
 // })
