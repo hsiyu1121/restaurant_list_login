@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
-// const restaurantList = require("./restaurant.json");
+const Restaurant = require("./models/restaurant");
 const port = 3000;
 
 app.engine("hbs", exphbs({ defaultLayout: "main", extname: ".hbs" }));
@@ -11,7 +11,7 @@ app.set("view engine", "hbs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect("mongodb://localhost/restautant", {
+mongoose.connect("mongodb://localhost/restaurant", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -27,12 +27,13 @@ db.once("open", () => {
 
 // index 位置
 app.get("/", (req, res) => {
-  res.render("index");
-});
+  Restaurant.find()
+            .lean()
+            .then(restaurants => res.render("index", { restaurants }))
+            .catch( error => console.log(error))
 
-// app.get('/', (req, res) => {
-//   res.render('index', {restaurant:restaurantList.results})
-// })
+  
+});
 
 // app.get('/restaurants/:restaurant_id', (req, res)=>{
 //   const restaurant = restaurantList.results.find(restaurant =>
