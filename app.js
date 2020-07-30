@@ -28,47 +28,88 @@ db.once("open", () => {
 // index 位置
 app.get("/", (req, res) => {
   Restaurant.find()
-            .lean()
-            .then(restaurants => res.render("index", { restaurants }))
-            .catch( error => console.log(error))
+    .lean()
+    .then(restaurants => res.render("index", { restaurants }))
+    .catch( error => console.log(error))
 });
 
-app.get("/restaurant/new", (req, res) => {
+app.get('/restaurants/new', (req, res) => {
   return res.render('new')
 })
 
 app.post('/restaurants', (req, res) => { 
-  console.log(req.body)
   return Restaurant.create( req.body )
-          .then( () => res.redirect('/'))
-          .catch(error => console.log(error))
+    .then( () => res.redirect('/'))
+    .catch(error => console.log(error))
 })
 
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurants) => res.render('show', { restaurants }))
+    .catch(error => console.log(error))
+})
 
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurants) => res.render('edit', {restaurants}))
+    .catch(error => console.log(error))
+})
 
-// app.get('/restaurants/:restaurant_id', (req, res)=>{
-//   const restaurant = restaurantList.results.find(restaurant =>
-//   restaurant.id.toString() === req.params.restaurant_id)
-//   res.render('show', {restaurant:restaurant})
-// })
+app.post('/restaurant/:id/edit', (req, res) => {
+  const id = req.params.id
+  const name = req.body.name
+  const name_en = req.body.name_en
+  const category = req.body.category
+  const image  = req.body.image
+  const location  = req.body.location
+  const phone  = req.body.phone
+  const google_map  = req.body.google_map
+  const rating  = req.body.rating
+  const description  = req.body.description
 
-// app.get('/search', (req, res)=>{
-//   console.log(req.query)
-//   const keyword = req.query.keyword
-//   const restaurant_name = restaurantList.results.filter((restaurant) => {
-//     return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
-//   })
-//   const restaurant_location = restaurantList.results.filter(restaurant => {
-//     return restaurant.location.toLowerCase().includes(keyword.toLowerCase())
-//   })
+  return Restaurant.fineById(id)
+    .then(restaurant => {
+      restaurant.name = name, 
+      restaurant.name_en = name_en,
+      restaurant.category = category,
+      restaurant.image = image,
+      restaurant.location = location,
+      restaurant.phone = phone,
+      restaurant.google_map = google_map,
+      restaurant.rating = rating,
+      restaurant.description = description
+      return restaurant.save()
+    })
+    .then( () => res.redirect(`/restaurants/${id}`))
+    .catch(error => console.log(error))
+})
 
-//   const result = restaurant_name.concat(
-//     restaurant_location.filter((e)=>{
-//     return restaurant_name.indexOf(e) === -1
-//   })
-//   )
-//   res.render('index', {restaurant:result})
-// })
+app.post('/restaurants/:id/delete', (req,res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+app.get('/search', (req, res)=>{
+  console.log(req.query)
+  const keyword = req.query.keyword
+  
+  Restaurant.find()
+    .or([{name:{$regex:keyword, $options:'i'}},
+        {name_en:{$regex:keyword, $options:'i'}},
+        {location:{$regex:keyword, $options:'i'}},
+         {category:{$regex:keyword, $options:'i'}}
+    ])
+    .lean()
+    .then(restaurants => res.render('index', { restaurants }))
+    .catch(error => console.log(error))
+})
 
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`);

@@ -2,7 +2,10 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
-
+      <a href="/restaurants/{{ restaurants._id }}/edit" class="btn btn-primary btn-sm">edit</a>
+      <form action="/restaurants/{{restaurants.id}}" method="POST" style="display: inline;">
+        <button type="submit" class="btn btn-primary btn-sm">delete</button>
+      </form>
       <p class="mb-1">
         <span class="text-secondary">
           <i class="fas fa-utensils pr-2"></i>

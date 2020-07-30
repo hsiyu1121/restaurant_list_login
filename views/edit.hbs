@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    <form action="/restaurants" method="POST">
+      店名:<input type="text" placeholder="name" name="name" value="{{restaurants.name}}"><br />
+      店名(英):<input type="text" placeholder="name_en" name="name_en" value="{{restaurants.name_en}}"><br />
+      類別:<input type="text" placeholder="category" name="category" value="{{restaurants.category}}"><br />
+      地址:<input type="text" placeholder="location" name="location" value="{{restaurants.location}}"><br />
+      電話:<input type="text" placeholder="phone" name="phone" value="{{restaurants.phone}}"><br />
+      地圖:<input type="text" placeholder="google_map" name="google_map" value="{{restaurants.google_map}}"><br />
+      評分:<input type="text" placeholder="rating" name="rating" value="{{restaurants.rating}}"><br />
+      簡介:<input type="text" placeholder="description" name="description" value="{{restaurants.description}}"><br />
+      <button type="submit">送出</button>
+    </form>
+  </div>
+</div>
