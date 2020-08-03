@@ -37,7 +37,7 @@ app.get('/restaurants/new', (req, res) => {
   return res.render('new')
 })
 
-app.post('/restaurants', (req, res) => { 
+app.post('/create', (req, res) => { 
   return Restaurant.create( req.body )
     .then( () => res.redirect('/'))
     .catch(error => console.log(error))
@@ -55,38 +55,20 @@ app.get('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
-    .then((restaurants) => res.render('edit', {restaurants}))
+    .then((restaurant) => res.render('edit', {restaurant}))
     .catch(error => console.log(error))
 })
 
 app.post('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
-  const name = req.body.name
-  const name_en = req.body.name_en
-  const category = req.body.category
-  const image  = req.body.image
-  const location  = req.body.location
-  const phone  = req.body.phone
-  const google_map  = req.body.google_map
-  const rating  = req.body.rating
-  const description  = req.body.description
-
-  return Restaurant.fineById(id)
+  return Restaurant.findById(id)
     .then(restaurant => {
-      restaurant.name = name, 
-      restaurant.name_en = name_en,
-      restaurant.category = category,
-      restaurant.image = image,
-      restaurant.location = location,
-      restaurant.phone = phone,
-      restaurant.google_map = google_map,
-      restaurant.rating = rating,
-      restaurant.description = description
+     Object.assign(restaurant, req.body)
       return restaurant.save()
     })
-    .then( () => res.redirect(`/restaurants/${id}`))
-    .catch(error => console.log(error))
-})
+   .then( () => res.redirect(`/restaurants/${id}`))
+   .catch(error => console.log(error))  
+})  
 
 app.post('/restaurants/:id/delete', (req,res) => {
   const id = req.params.id
