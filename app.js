@@ -59,7 +59,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/restaurant/:id/edit', (req, res) => {
+app.post('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
   const name = req.body.name
   const name_en = req.body.name_en
@@ -104,7 +104,7 @@ app.get('/search', (req, res)=>{
     .or([{name:{$regex:keyword, $options:'i'}},
         {name_en:{$regex:keyword, $options:'i'}},
         {location:{$regex:keyword, $options:'i'}},
-         {category:{$regex:keyword, $options:'i'}}
+        {category:{$regex:keyword, $options:'i'}}
     ])
     .lean()
     .then(restaurants => res.render('index', { restaurants }))
