@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row d-flex justify-content-center">
-    <form action="/restaurants/{{restaurant._id}}/edit" method="POST">
+    <form action="/restaurants/{{restaurant._id}}?_method=PUT" method="POST">
       店名:<input type="text" placeholder="name" name="name" value="{{restaurant.name}}"><br />
       店名(英):<input type="text" placeholder="name_en" name="name_en" value="{{restaurant.name_en}}"><br />
       類別:<input type="text" placeholder="category" name="category" value="{{restaurant.category}}"><br />

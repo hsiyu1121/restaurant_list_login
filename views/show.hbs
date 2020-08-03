@@ -5,7 +5,7 @@
 
       <div class="d-flex justify-content-start">
         <a href="/restaurants/{{ restaurants._id }}/edit" class="btn btn-primary btn-sm mx-1">edit</a>
-        <form action="/restaurants/{{restaurants.id}}" method="POST" style="display: inline;">
+        <form action="/restaurants/{{restaurants._id}}?_method=DELETE" method="POST" style="display: inline;">
           <button type="submit" class="btn btn-primary btn-sm">delete</button>
         </form>
       </div>
