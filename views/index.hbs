@@ -23,19 +23,19 @@
     <div class="dropdown">
       <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
-        排序分類
+        排序分類 {{#if currentSelected}} {{currentSelected}} {{/if}}
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="/sort/name/asc"> 店名：A 到 Z </a>
-        <a class="dropdown-item" href="/sort/name/desc"> 店名：Z 到 A </a>
-        <a class="dropdown-item" href="/sort/category/asc"> 類別：A 到 Z </a>
-        <a class="dropdown-item" href="/sort/category/desc"> 類別：Z 到 A </a>
-        <a class="dropdown-item" href="/sort/rating/asc"> 評分：A 到 Z </a>
-        <a class="dropdown-item" href="/sort/rating/desc"> 評分：Z 到 A </a>
+        <a class="dropdown-item" href="/sort/name/asc"> 店名：正排序 </a>
+        <a class="dropdown-item" href="/sort/name/desc"> 店名：反排序 </a>
+        <a class="dropdown-item" href="/sort/category/asc"> 類別：正排序 </a>
+        <a class="dropdown-item" href="/sort/category/desc"> 類別：反排序 </a>
+        <a class="dropdown-item" href="/sort/rating/ascending"> 評分：由低到高 </a>
+        <a class="dropdown-item" href="/sort/rating/descending"> 評分：由高到低 </a>
       </div>
     </div>
     <!-- dropdown -->
-    <div class="row mt-2">
+    <div class="row d-flex justify-content-center mt-2">
       <div class="col-md-10 col-12 mx-auto">
         <div class="card-columns">
           {{#each restaurants}}
@@ -55,7 +55,7 @@
                 </span>
                 <div class="d-flex justify-content-end">
                   <a href="./restaurants/{{ this._id }}/edit" class="btn btn-primary btn-sm mx-1">edit</a>
-                  <form action="./restaurants/{{this._id}}?_method=DELETE" method="POST" style="display: inline;">
+                  <form action="/restaurants/{{this._id}}?_method=DELETE" method="POST" style="display: inline;">
                     <button type="submit" class="btn btn-primary btn-sm">delete</button>
                   </form>
                 </div>
