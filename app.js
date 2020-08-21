@@ -8,8 +8,9 @@ const port = 3000;
 const methodOverride = require('method-override')
 const routes = require('./routes')
 const session = require('express-session')
-const userPassport = require('./config/passport')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
+
 
 app.engine("hbs", exphbs({ defaultLayout: "main", extname: ".hbs" }));
 app.set("view engine", "hbs");
@@ -23,8 +24,10 @@ app.use(session({
   saveUninitialized: true
 }))
 
-userPassport(app)
+usePassport(app)
 app.use(routes)
+
+
 
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`);
