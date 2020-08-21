@@ -33,18 +33,11 @@ router.get('/:id/edit', (req, res) => {
 
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  const { name, category, rating, location, phone, google_map, description } = req.body
-  const image = req.body.image !== '' ? req.body.image : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/640px-No_image_3x4.svg.png"
+  const { name, category, rating, image, location, phone, google_map, description } = req.body
+  // const image = req.body.image !== '' ? req.body.image : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/640px-No_image_3x4.svg.png"
   return Restaurant.findById(id)
     .then(restaurant => {
-      restaurant.name = name
-      restaurant.category = category
-      restaurant.image = image
-      restaurant.rating = rating
-      restaurant.location = location
-      restaurant.phone = phone
-      restaurant.google_map = google_map
-      restaurant.description = description
+      Object.assign(restaurant, req.body);
       return restaurant.save()
     })
     .then(() => res.redirect(`/restaurants/${id}`))
