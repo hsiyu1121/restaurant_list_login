@@ -1,10 +1,15 @@
 const express = require("express");
 const app = express();
 
+if(process.env.NODE_ENV !== "production"){
+  require('dotenv').config()
+}
+
+
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const Restaurant = require("./models/restaurant");
-const port = 3000;
+const port = process.env.PORT 
 const methodOverride = require('method-override')
 const routes = require('./routes')
 const session = require('express-session')
@@ -19,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'))
 
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false, 
   saveUninitialized: true
 }))
