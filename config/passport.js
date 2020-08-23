@@ -19,7 +19,7 @@ module.exports = (app) => {
               return done(
                 null,
                 false,
-                req.flash("warning_msg", "That email is not registered!")
+                req.flash("warning_msg", "Email尚未註冊!")
               );
             }
             return bcrypt.compare(password, user.password).then((isMatch) => {
@@ -27,7 +27,7 @@ module.exports = (app) => {
                 return done(
                   null,
                   false,
-                  req.flash("warning_msg", "Email or Password incorrect!")
+                  req.flash("warning_msg", "Email 或 password 錯誤，重新輸入!")
                 );
               }
               return done(null, user);

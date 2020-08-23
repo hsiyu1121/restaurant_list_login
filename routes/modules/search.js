@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   const keyword = req.query.keyword.toLowerCase()
   const userId = req.user._id
 
-  Restaurant.findOne({userId})
+  Restaurant.find({userId})
     .lean()
     .then((restaurants) => {
       return restaurants.filter(restaurant => 

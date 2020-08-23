@@ -9,8 +9,9 @@ router.get('/:type/:method', (req, res) => {
   const methodObj = {asc:'正排序', desc:'反排序', descending: '由高至低', ascending: '由低至高'} 
   const currentSelected = `${typeObj[type]}:${methodObj[method]}`
   const userId = req.user._id
+  const _id = req.params.id
 
-  Restaurant.findOne({userId})
+  Restaurant.find({userId})
     .lean()
     .sort({ [type]: [method] })
     .then(restaurants => res.render('index', {restaurants, currentSelected}))
