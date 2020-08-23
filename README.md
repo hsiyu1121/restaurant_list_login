@@ -60,12 +60,17 @@
 # 環境變數設定
 ##### 在資料夾的根目錄建立 ``.env``
 ##### 檔案內的變數如下：
-``MONGODB_URI=mongodb://localhost/restaurant``
-``FACEBOOK_ID=[應用程式編號]``
-``FACEBOOK_SECRET=[應用程式密鑰]``
-``FACEBOOK_CALLBACK=http://localhost:3000/auth/facebook/callback``
-``SESSION_SECRET=ThisIsMySecret``
-``PORT=3000``
+  ``MONGODB_URI=mongodb://localhost/restaurant``
+  
+  ``FACEBOOK_ID=[應用程式編號]``
+  
+  ``FACEBOOK_SECRET=[應用程式密鑰]``
+  
+  ``FACEBOOK_CALLBACK=http://localhost:3000/auth/facebook/callback``
+  
+  ``SESSION_SECRET=ThisIsMySecret``
+  
+  ``PORT=3000``
 
 ##### 其中[應用程式編號]和[應用程式密鑰] 是由 [facebook](https://developers.facebook.com/) 取得
 
