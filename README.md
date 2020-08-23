@@ -60,6 +60,7 @@
 ## 環境變數設定
 * 在資料夾的根目錄建立 ``.env``
 * 檔案內的變數如下：
+  
   ``MONGODB_URI=mongodb://localhost/restaurant``
   
   ``FACEBOOK_ID=[應用程式編號]``
