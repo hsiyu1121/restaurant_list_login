@@ -73,8 +73,8 @@
   
   ``PORT=3000``
 
-* 其中[應用程式編號]和[應用程式密鑰] 是由 [facebook](https://developers.facebook.com/) 取得
-* 在左上角「我的應用程式」裡找到「新增應用程式」的按鈕，為你的應用程式取個名字
+* 其中[應用程式編號]和[應用程式密鑰] 是由 [facebook for developers](https://developers.facebook.com/) 取得
+* 在"facebook for developers" 左上角「我的應用程式」裡找到「新增應用程式」的按鈕，為你的應用程式取個名字
 * 選擇 "Facebook 登入"
 * 在左側選單中點選 "設定 > 基本資料"
 * 即可以取得相對對應的值
