@@ -12,7 +12,8 @@ router.post(
   "/login",
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/users/login"
+    failureRedirect: "/users/login",
+    failureFlash: true
   })
 );
 
@@ -21,26 +22,39 @@ router.get("/register", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  const { name, email, password, confirmPassword } = req.body;
+  let { name, email, password, confirmPassword } = req.body;
   const errors = [];
 
   if (!email || !password || !confirmPassword) {
-    errors.push({ message: "電子郵件, 密碼, 確認密碼 欄位需要填寫！！" });
+    errors.push({ message: "電子郵件, 密碼, 確認密碼 為必填欄位！！" });
   }
   if (password !== confirmPassword) {
     errors.push({ message: "密碼和確認密碼不相符！！" });
   }
 
+  if(errors.length){
+    return res.render('register', {
+      errors, 
+      name, 
+      email, 
+      password, 
+      confirmPassword
+    })
+  }
+  if(!name.length){
+    name = email.slice(0, email.indexOf('@'))
+  }
+
   User.findOne({ email }).then((user) => {
     if (user) {
       errors.push({ message: "這個Email已經註冊過了！！" });
-      res.render("register", {
+      return res.render('register', { 
         errors,
         name,
         email,
         password,
         confirmPassword,
-      });
+      })
     }
     return bcrypt
       .genSalt(10)

@@ -22,7 +22,7 @@ module.exports = (app) => {
                 req.flash("warning_msg", "Email尚未註冊!")
               );
             }
-            return bcrypt.compare(password, user.password).then((isMatch) => {
+            return bcrypt.compare(password, user.password).then(isMatch => {
               if (!isMatch) {
                 return done(
                   null,
